@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  solr:
+    container_name: solr
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - data:/opt/solr/server/solr/ovSpeeches
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - ovSpeeches
+
+  worker:
+    build: worker
+    container_name: flask_worker
+    ports:
+      - "5001:5001"
+
+volumes:
+  data:
